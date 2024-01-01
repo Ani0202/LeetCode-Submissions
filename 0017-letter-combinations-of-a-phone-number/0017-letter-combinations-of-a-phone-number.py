@@ -8,9 +8,7 @@ class Solution:
                     ans.append(tempAns)
                 else:
                     for letter in hmap[digits[0]]:
-                        tempAns += letter
-                        backTrack(digits[1:], tempAns)
-                        tempAns = tempAns[:-1]
+                        backTrack(digits[1:], tempAns + letter)
 
             backTrack(digits, "")
         return ans
