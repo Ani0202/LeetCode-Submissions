@@ -7,7 +7,5 @@ class Solution:
             hmapT[t[i]] += 1
         ans = 0
         for k,v1 in hmapS.items():
-            v2 = hmapT[k]
-            if v2 < v1:
-                ans += v1-v2
+            ans += max(0, v1-hmapT[k])
         return ans
