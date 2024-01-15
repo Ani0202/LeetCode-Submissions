@@ -2,7 +2,7 @@ class AuthenticationManager:
 
     def __init__(self, timeToLive: int):
         self.timeToLove = timeToLive
-        self.hmap = dict()
+        self.hmap = defaultdict(int)
         
 
     def generate(self, tokenId: str, currentTime: int) -> None:
@@ -10,15 +10,12 @@ class AuthenticationManager:
         
 
     def renew(self, tokenId: str, currentTime: int) -> None:
-        if tokenId in self.hmap and self.hmap[tokenId] > currentTime:
+        if self.hmap[tokenId] > currentTime:
             self.hmap[tokenId] = currentTime + self.timeToLove
         
 
     def countUnexpiredTokens(self, currentTime: int) -> int:
-        ans = 0
-        for v in self.hmap.values():
-            ans += 1 if v > currentTime else 0
-        return ans
+        return sum(expiry > currentTime for expiry in self.hmap.values())
         
 
 
