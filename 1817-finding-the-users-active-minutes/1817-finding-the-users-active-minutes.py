@@ -5,7 +5,6 @@ class Solution:
             hmap[i].add(t)
         ans = [0 for _ in range(k)]
         for v in hmap.values():
-            if len(v) <= k:
-                ans[len(v)-1] += 1
+            ans[len(v)-1] += 1
         return ans
         
