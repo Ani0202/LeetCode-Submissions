@@ -1,5 +1,7 @@
 class Solution:
-    def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
+    def findPaths(
+        self, m: int, n: int, maxMove: int, startRow: int, startColumn: int
+    ) -> int:
         M = 1000000000 + 7
         dp = [[0] * n for _ in range(m)]
         dp[startRow][startColumn] = 1
@@ -13,7 +15,7 @@ class Solution:
                     if i == m - 1:
                         count = (count + dp[i][j]) % M
                     else:
-                        temp[i][j] += dp[i + 1][j] 
+                        temp[i][j] += dp[i + 1][j]
                     if j == n - 1:
                         count = (count + dp[i][j]) % M
                     else:
