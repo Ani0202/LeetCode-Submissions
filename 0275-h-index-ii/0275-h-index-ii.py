@@ -1,21 +1,16 @@
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
-        n = len(citations)
-
-        def isAns(c):
-            for i in range(n):
-                if citations[i] >= c:
-                    return n - i >= c
-            return False
-
         l = 0
-        h = citations[n - 1]
+        n = len(citations)
+        h = n
         ans = 0
-        while l <= h:
-            mid = (l + h) // 2
-            if isAns(mid):
-                ans = mid
-                l = mid + 1
+        while l < h:
+            mid = (l+h)//2
+            print(mid)
+            if citations[n-1-mid]>=mid:
+                l = mid+1
+                ans = mid+1
             else:
-                h = mid - 1
+                h = mid-1
         return ans
+        
