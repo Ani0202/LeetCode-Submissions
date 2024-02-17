@@ -24,6 +24,7 @@ class Solution:
             if lNode and rNode:
                 return max(l, r) + node.val
             return node.val + (l if lNode else r)
+
         head = TreeNode()
         head.left = root
         delNodes(head, 0)
