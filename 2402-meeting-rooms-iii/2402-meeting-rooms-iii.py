@@ -1,22 +1,18 @@
 class Solution:
     def mostBooked(self, n: int, meetings: List[List[int]]) -> int:
+        used = []
+        unused = list(range(n))
         meetCount = [0 for _ in range(n)]
-        meetRoom = [0 for _ in range(n)]
-        meetings.sort(key=lambda x: x[0])
-        for i in meetings:
-            minRoom = -1
-            minCount = float("inf")
-            roomFound = False
-            for j in range(n):
-                if meetRoom[j] <= i[0]:
-                    meetRoom[j] = i[1]
-                    meetCount[j] += 1
-                    roomFound = True
-                    break
-                if meetRoom[j] < minCount:
-                    minCount = meetRoom[j]
-                    minRoom = j
-            if roomFound == False:
-                meetRoom[minRoom] = minCount + i[1] - i[0]
-                meetCount[minRoom] += 1
+        for s, e in sorted(meetings):
+            while used and used[0][0] <= s:
+                end, room = heappop(used)
+                heappush(unused, room)
+            if unused:
+                room = heappop(unused)
+                heappush(used, [e, room])
+            else:
+                end, room = heappop(used)
+                heappush(used, [end + e - s, room])
+            meetCount[room] += 1
+
         return meetCount.index(max(meetCount))
