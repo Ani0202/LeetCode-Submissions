@@ -1,20 +1,20 @@
 class Solution:
     def vowelStrings(self, words: List[str], queries: List[List[int]]) -> List[int]:
         n = len(words)
-        arr = [0 for _ in range(n)]
-        vowels = ["a", "e", "i", "o", "u"]
-        if words[0][0].lower() in vowels and words[0][-1].lower() in vowels:
-            arr[0] = 1
+        vowels = "aeiou"
+        leftArr = [0 for _ in range(n)]
+        if words[0][0] in vowels and words[0][-1] in vowels:
+            leftArr[0] = 1
         for i in range(1, n):
-            if words[i][0].lower() in vowels and words[i][-1].lower() in vowels:
-                arr[i] = 1
-            arr[i] += arr[i-1]
+            leftArr[i] = leftArr[i - 1] + (
+                1 if (words[i][0] in vowels and words[i][-1] in vowels) else 0
+            )
 
-        ans = []
-        for l,r in queries:
-            if l != 0:
-                ans.append(arr[r]-arr[l-1])
-            else:
-                ans.append(arr[r] - 0)
+        m = len(queries)
+        ans = [0 for _ in range(m)]
+        for i in range(m):
+            ans[i] = leftArr[queries[i][1]] - (
+                leftArr[queries[i][0] - 1] if queries[i][0] != 0 else 0
+            )
+
         return ans
-        
