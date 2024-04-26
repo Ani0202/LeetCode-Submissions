@@ -1,15 +1,12 @@
 class Solution:
     def minimumMoves(self, s: str) -> int:
-        n = len(s)
-        oSet = set()
-        for i in range(n):
-            if s[i] == "O":
-                oSet.add(i)
-
         ans = 0
-        for i in range(len(s)):
-            if i not in oSet:
+        i = 0
+        while i < len(s):
+            if s[i] == "X":
                 ans += 1
-                oSet = oSet.union([i, i + 1, i + 2])
+                i += 2
+
+            i += 1
 
         return ans
