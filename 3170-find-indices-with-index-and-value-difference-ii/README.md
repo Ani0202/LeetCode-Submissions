@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/find-indices-with-index-and-value-difference-ii">3170. Find Indices With Index and Value Difference II</a></h2><h3>Medium</h3><hr><p>You are given a <strong>0-indexed</strong> integer array <code>nums</code> having length <code>n</code>, an integer <code>indexDifference</code>, and an integer <code>valueDifference</code>.</p>
+<h2><a href="https://leetcode.com/problems/find-indices-with-index-and-value-difference-ii">Find Indices With Index and Value Difference II</a></h2> <img src='https://img.shields.io/badge/Difficulty-Medium-orange' alt='Difficulty: Medium' /><hr><p>You are given a <strong>0-indexed</strong> integer array <code>nums</code> having length <code>n</code>, an integer <code>indexDifference</code>, and an integer <code>valueDifference</code>.</p>
 
 <p>Your task is to find <strong>two</strong> indices <code>i</code> and <code>j</code>, both in the range <code>[0, n - 1]</code>, that satisfy the following conditions:</p>
 
