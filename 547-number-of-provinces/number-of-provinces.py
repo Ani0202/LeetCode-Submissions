@@ -4,7 +4,7 @@ class Solution:
         visited = set()
         ans = 0
 
-        def bfs(ind, visited):
+        def bfs(ind):
             visited.add(ind)
             q = deque([ind])
             while len(q):
@@ -16,7 +16,7 @@ class Solution:
 
         for i in range(n):
             if i not in visited:
-                bfs(i, visited)
+                bfs(i)
                 ans += 1
 
         return ans
