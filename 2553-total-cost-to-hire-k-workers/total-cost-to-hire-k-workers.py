@@ -6,7 +6,7 @@ class Solution:
         heapq.heapify(tail)
         ans = 0
         i = candidates
-        j = len(costs) - 1 - candidates
+        j = max(candidates, len(costs) - candidates) - 1
         for _ in range(k):
             if not tail or head and head[0] <= tail[0]:
                 ans += heapq.heappop(head)
