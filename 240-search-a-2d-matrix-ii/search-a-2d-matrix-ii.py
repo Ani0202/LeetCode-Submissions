@@ -2,18 +2,15 @@ class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         m = len(matrix)
         n = len(matrix[0])
-        for i in range(m):
-            if matrix[i][0] > target:
-                break
-            elif matrix[i][n - 1] < target:
-                continue
-
-            for j in range(n):
-                if matrix[0][j] > target:
-                    break
-                elif matrix[m - 1][j] < target:
-                    continue
-                elif matrix[i][j] == target:
-                    return True
+        r = 0
+        c = n - 1
+        while r < m and c >= 0:
+            curr = matrix[r][c]
+            if curr == target:
+                return True
+            elif curr > target:
+                c -= 1
+            else:
+                r += 1
 
         return False
