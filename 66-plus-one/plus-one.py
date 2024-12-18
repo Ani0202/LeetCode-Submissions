@@ -1,12 +1,10 @@
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        ans = []
-        n = 1
-        for i in digits[::-1]:
-            ans.append((i + n) % 10)
-            n = (n + i) // 10
+        n = len(digits)
+        for i in range(n - 1, -1, -1):
+            digits[i] += 1
+            digits[i] %= 10
+            if digits[i] != 0:
+                return digits
 
-        if n:
-            ans.append(n)
-
-        return ans[::-1]
+        return [1] + digits
