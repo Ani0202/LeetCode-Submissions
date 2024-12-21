@@ -9,8 +9,8 @@ class Solution:
             return head
 
         slow = head
-        fast = head
-        while fast.next and fast.next.next:
+        fast = head.next
+        while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
 
@@ -29,10 +29,6 @@ class Solution:
                 head2 = head2.next
             curr = curr.next
 
-        if head1:
-            curr.next = head1
-
-        if head2:
-            curr.next = head2
+        curr.next = head1 or head2
 
         return temp.next
