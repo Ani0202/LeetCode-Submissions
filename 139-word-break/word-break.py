@@ -8,6 +8,6 @@ class Solution:
             for j in range(i):
                 if dp[j] and s[j:i] in words:
                     dp[i] = True
-                    continue
+                    break
 
         return dp[n]
