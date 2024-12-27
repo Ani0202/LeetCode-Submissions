@@ -3,11 +3,9 @@ from collections import deque
 
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        hmap = dict()
-        for word in wordList:
-            hmap[word] = False
+        wordSet = set(wordList)
 
-        if endWord not in hmap:
+        if endWord not in wordSet:
             return 0
 
         queue = deque()
@@ -17,11 +15,11 @@ class Solution:
             for i in range(len(word)):
                 for j in range(26):
                     newWord = word[:i] + chr(j + 97) + word[i + 1 :]
-                    if newWord in hmap:
+                    if newWord in wordSet:
                         if newWord == endWord:
                             return count + 1
-                        if hmap[newWord] is False:
-                            queue.append((newWord, count + 1))
-                            hmap[newWord] = True
+
+                        queue.append((newWord, count + 1))
+                        wordSet.remove(newWord)
 
         return 0
