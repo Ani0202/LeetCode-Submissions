@@ -6,6 +6,10 @@ class Solution:
         hmap = dict()
         for word in wordList:
             hmap[word] = False
+
+        if endWord not in hmap:
+            return 0
+
         queue = deque()
         queue.append((beginWord, 1))
         while queue:
