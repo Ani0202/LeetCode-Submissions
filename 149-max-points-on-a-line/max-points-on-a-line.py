@@ -1,19 +1,20 @@
 class Solution:
-    def gcd(self, a, b):
-        return a if b == 0 else self.gcd(b, a % b)
-
     def maxPoints(self, points: List[List[int]]) -> int:
-        ans = 0
+        def gcd(a, b):
+            if b == 0:
+                return a
+            return gcd(b, a % b)
+
         n = len(points)
+        ans = 0
         for i in range(n - 1):
-            x, y = points[i]
-            slopes = defaultdict(int)
+            hmap = dict()
             for j in range(i + 1, n):
-                x2, y2 = points[j]
-                dx = x2 - x
-                dy = y2 - y
-                hcf = self.gcd(dx, dy)
-                slopes[(dx // hcf, dy // hcf)] += 1
-                ans = max(ans, slopes[(dx // hcf, dy // hcf)])
+                dy = points[j][1] - points[i][1]
+                dx = points[j][0] - points[i][0]
+                hcf = gcd(dx, dy)
+                key = str(dy // hcf) + "/" + str(dx // hcf)
+                hmap[key] = hmap.get(key, 0) + 1
+                ans = max(ans, hmap[key])
 
         return ans + 1
