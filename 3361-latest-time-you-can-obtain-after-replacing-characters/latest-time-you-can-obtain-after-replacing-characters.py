@@ -10,7 +10,7 @@ class Solution:
             ans += s[0]
 
         if s[1] == "?":
-            if ans[0] == "1":
+            if ans == "1":
                 ans += "1"
             else:
                 ans += "9"
