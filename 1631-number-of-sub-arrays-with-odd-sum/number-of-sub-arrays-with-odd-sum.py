@@ -1,27 +1,15 @@
 class Solution:
     def numOfSubarrays(self, arr: List[int]) -> int:
+        odd, even, ans = 0, 1, 0
+        MOD = 1000000007
         total = 0
-        even = 1
-        odd = 0
-        ans = 0
         for num in arr:
-            if num % 2:
-                if total:
-                    ans = (ans + odd) % 1000000007
-                    total = 0
-                    even += 1
-                else:
-                    ans = (ans + even) % 1000000007
-                    total = 1
-                    odd += 1
+            total += num
+            if total % 2:
+                ans = (ans + even) % MOD
+                odd += 1
             else:
-                if total:
-                    ans = (ans + even) % 1000000007
-                    total = 1
-                    odd += 1
-                else:
-                    ans = (ans + odd) % 1000000007
-                    total = 0
-                    even += 1
+                ans = (ans + odd) % MOD
+                even += 1
 
         return ans
