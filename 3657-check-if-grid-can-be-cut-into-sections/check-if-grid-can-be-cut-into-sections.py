@@ -6,6 +6,7 @@ class Solution:
         for startx, _, endx, _ in rectangles[1:]:
             if startx >= prev:
                 find += 1
+
             prev = max(prev, endx)
             if find == 2:
                 return True
@@ -16,6 +17,7 @@ class Solution:
         for _, starty, _, endy in rectangles[1:]:
             if starty >= prev:
                 find += 1
+
             prev = max(prev, endy)
             if find == 2:
                 return True
