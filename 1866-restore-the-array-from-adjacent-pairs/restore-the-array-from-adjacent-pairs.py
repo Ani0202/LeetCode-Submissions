@@ -12,14 +12,13 @@ class Solution:
                 break
 
         prev = None
-        visited = set()
-        ans = []
-        while prev != curr:
-            ans.append(curr)
-            visited.add(curr)
-            prev = curr
+        ans = [curr]
+        while len(ans) < len(edges):
             for num in edges[curr]:
-                if num not in visited:
+                if num != prev:
+                    ans.append(num)
+                    prev = curr
                     curr = num
+                    break
 
         return ans
