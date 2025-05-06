@@ -1,10 +1,8 @@
 class Solution:
     def buildArray(self, nums: List[int]) -> List[int]:
         n = len(nums)
+        ans = []
         for i in range(n):
-            nums[i] = (1000 * (nums[nums[i]] % 1000)) + nums[i]
+            ans.append(nums[nums[i]])
 
-        for i in range(n):
-            nums[i] = nums[i] // 1000
-
-        return nums
+        return ans
