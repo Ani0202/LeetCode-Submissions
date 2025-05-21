@@ -5,33 +5,18 @@ class Solution:
         """
         m = len(matrix)
         n = len(matrix[0])
-        firstRowZero = False
-        firstColZero = False
-        for i in range(n):
-            if matrix[0][i] == 0:
-                firstRowZero = True
-                break
+        rowSet = set()
+        colSet = set()
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] == 0:
+                    rowSet.add(i)
+                    colSet.add(j)
 
         for i in range(m):
-            if matrix[i][0] == 0:
-                firstColZero = True
-                break
-
-        for i in range(1, m):
-            for j in range(1, n):
-                if matrix[i][j] == 0:
-                    matrix[i][0] = 0
-                    matrix[0][j] = 0
-
-        for i in range(1, m):
-            for j in range(1, n):
-                if matrix[i][0] == 0 or matrix[0][j] == 0:
-                    matrix[i][j] = 0
-
-        if firstRowZero:
             for j in range(n):
-                matrix[0][j] = 0
-
-        if firstColZero:
-            for i in range(m):
-                matrix[i][0] = 0
+                if i in rowSet:
+                    matrix[i] = [0] * n
+                    continue
+                elif j in colSet:
+                    matrix[i][j] = 0
