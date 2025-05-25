@@ -1,18 +1,18 @@
 class Solution:
     def longestPalindrome(self, words: List[str]) -> int:
-        unusedWords = defaultdict(int)
-        count = 0
+        ans = 0
+        wordCount = dict()
         for word in words:
             revWord = word[::-1]
-            if unusedWords[revWord] > 0:
-                unusedWords[revWord] -= 1
-                count += 4
+            if wordCount.get(revWord, 0):
+                ans += 4
+                wordCount[revWord] -= 1
             else:
-                unusedWords[word] += 1
+                wordCount[word] = wordCount.get(word, 0) + 1
 
-        for k, v in unusedWords.items():
-            if k == k[::-1] and v > 0:
-                count += 2
+        for k, v in wordCount.items():
+            if v != 0 and k == k[::-1]:
+                ans += 2
                 break
 
-        return count
+        return ans
