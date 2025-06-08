@@ -1,21 +1,34 @@
+class Trie:
+    def __init__(self):
+        self.tree = dict()
+        self.isLeaf = False
+
+
 class StreamChecker:
 
     def __init__(self, words: List[str]):
-        self.suffs = dict()
-        self.chars = ""
+        self.suff = ""
+        self.trie = Trie()
         for word in words:
-            if word[-1] in self.suffs:
-                self.suffs[word[-1]].append(word)
-            else:
-                self.suffs[word[-1]] = [word]
+            trie = self.trie
+            for letter in word[::-1]:
+                if letter not in trie.tree:
+                    trie.tree[letter] = Trie()
+
+                trie = trie.tree[letter]
+
+            trie.isLeaf = True
 
     def query(self, letter: str) -> bool:
-        self.chars += letter
-        if letter in self.suffs:
-            for word in self.suffs[letter]:
-                n = len(word)
-                if n <= len(self.chars) and word == self.chars[-n:]:
-                    return True
+        self.suff += letter
+        trie = self.trie
+        for let in self.suff[::-1]:
+            if let not in trie.tree:
+                return False
+
+            trie = trie.tree[let]
+            if trie.isLeaf:
+                return True
 
         return False
 
