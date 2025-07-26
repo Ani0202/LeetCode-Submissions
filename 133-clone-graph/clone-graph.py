@@ -11,18 +11,20 @@ from typing import Optional
 
 class Solution:
     def cloneGraph(self, node: Optional["Node"]) -> Optional["Node"]:
-        self.hmap = dict()
-        return self.dfs(node)
+        nodes = dict()
 
-    def dfs(self, node):
-        if node is None:
-            return None
+        def addNodes(n):
+            if n is None:
+                return None
 
-        if node.val in self.hmap:
-            return self.hmap[node.val]
+            val = n.val
+            neigh = n.neighbors
+            if val not in nodes:
+                newNode = Node(val, [])
+                nodes[val] = newNode
+                for i in neigh:
+                    newNode.neighbors.append(addNodes(i))
 
-        self.hmap[node.val] = Node(node.val, [])
-        for neigh in node.neighbors:
-            self.hmap[node.val].neighbors.append(self.dfs(neigh))
+            return nodes[val]
 
-        return self.hmap[node.val]
+        return addNodes(node)
