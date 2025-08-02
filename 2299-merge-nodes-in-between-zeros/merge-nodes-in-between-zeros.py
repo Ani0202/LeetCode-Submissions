@@ -5,16 +5,15 @@
 #         self.next = next
 class Solution:
     def mergeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        temp = head.next
-        curr = temp
+        modified = head
+        curr = head.next
         while curr:
-            tempSum = 0
-            while curr.val != 0:
-                tempSum += curr.val
-                curr = curr.next
+            if curr.val == 0:
+                modified.next = None if curr.next is None else curr
+                modified = modified.next
+            else:
+                modified.val += curr.val
 
-            temp.val = tempSum
             curr = curr.next
-            temp.next = curr
-            temp = temp.next
-        return head.next
+
+        return head
