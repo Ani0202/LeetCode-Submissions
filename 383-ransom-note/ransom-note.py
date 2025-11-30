@@ -1,13 +1,13 @@
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        hmap = dict()
-        for val in magazine:
-            hmap[val] = hmap.get(val, 0) + 1
+        magazine_map = dict()
+        for letter in magazine:
+            magazine_map[letter] = magazine_map.get(letter, 0) + 1
 
-        for val in ransomNote:
-            if val not in hmap or hmap[val] == 0:
+        for letter in ransomNote:
+            if magazine_map.get(letter, 0) == 0:
                 return False
 
-            hmap[val] -= 1
+            magazine_map[letter] -= 1
 
         return True
