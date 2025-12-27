@@ -5,7 +5,7 @@ class Solution:
         noOfMeetings = [0] * n
         for start, end in sorted(meetings):
             while unAvailRooms and unAvailRooms[0][0] <= start:
-                endTime, room = heapq.heappop(unAvailRooms)
+                _, room = heapq.heappop(unAvailRooms)
                 heapq.heappush(availRooms, room)
 
             if availRooms:
@@ -14,7 +14,7 @@ class Solution:
                 noOfMeetings[room] += 1
             else:
                 endTime, room = heapq.heappop(unAvailRooms)
-                heapq.heappush(unAvailRooms, (end + endTime - start, room))
+                heapq.heappush(unAvailRooms, (endTime + end - start, room))
                 noOfMeetings[room] += 1
 
         maxMeetings = -1
