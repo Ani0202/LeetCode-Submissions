@@ -1,7 +1,19 @@
 class Solution:
     def hasAllCodes(self, s: str, k: int) -> bool:
-        distinct_codes = set()
-        for i in range(len(s) - k + 1):
-            distinct_codes.add(s[i : i + k])
+        n = len(s)
+        if n < k:
+            return False
 
-        return len(distinct_codes) == 2**k
+        distinct_codes = set()
+        count = 0
+        total_codes = 2**k
+        for i in range(n - k + 1):
+            code = s[i : i + k]
+            if code not in distinct_codes:
+                distinct_codes.add(code)
+                count += 1
+
+            if n - i - k + count < total_codes:
+                return False
+
+        return True
