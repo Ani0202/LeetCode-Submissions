@@ -12,6 +12,8 @@ class Solution:
             if code not in distinct_codes:
                 distinct_codes.add(code)
                 count += 1
+            if count == total_codes:
+                return True
 
             if n - i - k + count < total_codes:
                 return False
