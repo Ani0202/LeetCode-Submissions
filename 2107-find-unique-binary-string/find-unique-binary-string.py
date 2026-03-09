@@ -1,23 +1,8 @@
 class Solution:
     def findDifferentBinaryString(self, nums: List[str]) -> str:
-        nums_set = set(nums)
+        ans = ""
         n = len(nums)
+        for i in range(n):
+            ans += "1" if nums[i][i] == "0" else "0"
 
-        def find_str(temp):
-            if len(temp) == n:
-                if temp not in nums_set:
-                    return temp
-
-                return ""
-
-            add_zero = find_str(temp + "0")
-            if add_zero:
-                return add_zero
-
-            add_one = find_str(temp + "1")
-            if add_one:
-                return add_one
-
-            return ""
-
-        return find_str("")
+        return ans
