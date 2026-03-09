@@ -1,24 +1,23 @@
 class Solution:
     def findDifferentBinaryString(self, nums: List[str]) -> str:
-        n = len(nums[0])
-        self.ans = ""
-        numSet = set(nums)
-        temp = ""
-        self.findUniqueStr(numSet, temp, n)
-        return self.ans
+        nums_set = set(nums)
+        n = len(nums)
 
-    def findUniqueStr(self, numSet, temp, n):
-        if len(temp) == n:
-            if temp not in numSet:
-                self.ans = temp
-                return True
-            else:
-                return False
+        def find_str(temp):
+            if len(temp) == n:
+                if temp not in nums_set:
+                    return temp
 
-        for i in ["0", "1"]:
-            temp += i
-            if self.findUniqueStr(numSet, temp, n):
-                return True
-            temp = temp[:-1]
+                return ""
 
-        return False
+            add_zero = find_str(temp + "0")
+            if add_zero:
+                return add_zero
+
+            add_one = find_str(temp + "1")
+            if add_one:
+                return add_one
+
+            return ""
+
+        return find_str("")
