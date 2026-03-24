@@ -3,13 +3,11 @@ class Solution:
         def count_hrs(s):
             hrs = 0
             for count in piles:
-                hrs += count // s
-                if count % s != 0:
-                    hrs += 1
+                hrs += -(count // -s)
 
             return hrs
 
-        low = 1
+        low = -(sum(piles) // -h)
         high = max(piles)
         ans = -1
         while low <= high:
