@@ -2,7 +2,10 @@ class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         anagrams = defaultdict(list)
         for s in strs:
-            sorted_str = "".join(i for i in sorted(s))
-            anagrams[sorted_str].append(s)
+            count = [0 for _ in range(26)]
+            for char in s:
+                count[ord(char) - ord("a")] += 1
 
-        return [i for i in anagrams.values()]
+            anagrams[tuple(count)].append(s)
+
+        return list(anagrams.values())
