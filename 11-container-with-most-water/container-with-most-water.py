@@ -10,8 +10,12 @@ class Solution:
                 ans = area
 
             if height[l] < height[h]:
-                l += 1
+                curr = height[l]
+                while l <= h and height[l] <= curr:
+                    l += 1
             else:
-                h -= 1
+                curr = height[h]
+                while l <= h and height[h] <= curr:
+                    h -= 1
 
         return ans
