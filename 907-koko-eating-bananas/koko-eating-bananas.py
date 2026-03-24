@@ -1,22 +1,23 @@
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        def isValid(speed):
+        def count_hrs(s):
             hrs = 0
-            for num in piles:
-                hrs += num // speed
-                hrs += 1 if num % speed != 0 else 0
+            for count in piles:
+                hrs += count // s
+                if count % s != 0:
+                    hrs += 1
 
-            return hrs <= h
+            return hrs
 
         low = 1
         high = max(piles)
-        ans = 0
+        ans = -1
         while low <= high:
-            mid = (low + high) >> 1
-            if isValid(mid):
-                ans = mid
-                high = mid - 1
+            m = (low + high) // 2
+            if count_hrs(m) <= h:
+                ans = m
+                high = m - 1
             else:
-                low = mid + 1
+                low = m + 1
 
         return ans
