@@ -1,19 +1,22 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        max_len = 0
-        ans = ""
         n = len(s)
-        dp = [[0 for _ in range(n)] for _ in range(n)]
-        for i in range(n - 1, -1, -1):
-            for j in range(i, n):
-                if s[i] == s[j] and (
-                    i == j
-                    or j == i + 1
-                    or (i < n - 1 and j > 0 and dp[i + 1][j - 1] == 1)
-                ):
-                    dp[i][j] = 1
-                    if max_len < j - i + 1:
-                        max_len = j - i + 1
-                        ans = s[i : j + 1]
+
+        def find_palindrome(i, j):
+            while i >= 0 and j < n and s[i] == s[j]:
+                i -= 1
+                j += 1
+
+            return s[i + 1 : j]
+
+        ans = ""
+        for i in range(n):
+            odd_pal = find_palindrome(i, i)
+            even_pal = find_palindrome(i, i + 1)
+            if len(ans) < len(odd_pal):
+                ans = odd_pal
+
+            if len(ans) < len(even_pal):
+                ans = even_pal
 
         return ans
