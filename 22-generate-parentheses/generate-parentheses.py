@@ -1,17 +1,16 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        ans = []
+        self.ans = []
 
-        def findParen(oppn, clpn, temp):
-            if clpn == n:
-                ans.append(temp)
+        def build_par(temp, o, c):
+            if c == 0:
+                self.ans.append(temp)
                 return
 
-            if oppn < n:
-                findParen(oppn + 1, clpn, temp + "(")
+            if o != 0:
+                build_par(temp + "(", o - 1, c)
+            if c > o:
+                build_par(temp + ")", o, c - 1)
 
-            if clpn < oppn:
-                findParen(oppn, clpn + 1, temp + ")")
-
-        findParen(0, 0, "")
-        return ans
+        build_par("", n, n)
+        return self.ans
