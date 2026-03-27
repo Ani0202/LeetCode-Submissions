@@ -1,6 +1,3 @@
-import heapq
-
-
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -8,20 +5,20 @@ import heapq
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        k = len(lists)
         heap = []
+        k = len(lists)
         for i in range(k):
             if lists[i]:
-                heap.append((lists[i].val, i, lists[i]))
+                heapq.heappush(heap, (lists[i].val, i, lists[i]))
 
-        heapq.heapify(heap)
-        dummyNode = ListNode()
-        curr = dummyNode
+        head = ListNode()
+        curr = head
         while heap:
-            val, ind, node = heapq.heappop(heap)
+            val, i, node = heapq.heappop(heap)
             curr.next = node
-            curr = curr.next
             if node.next:
-                heapq.heappush(heap, (node.next.val, ind, node.next))
+                heapq.heappush(heap, (node.next.val, i, node.next))
 
-        return dummyNode.next
+            curr = curr.next
+
+        return head.next
