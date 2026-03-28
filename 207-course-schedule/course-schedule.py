@@ -1,23 +1,29 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        pre_req = defaultdict(int)
-        pre_cour = defaultdict(list)
+        edges = [[] for _ in range(numCourses)]
         for a, b in prerequisites:
-            pre_req[a] += 1
-            pre_cour[b].append(a)
+            edges[b].append(a)
 
-        queue = deque()
-        courses_taken = 0
+        states = [0 for _ in range(numCourses)]
+
+        def has_cycle(node):
+            if states[node] == 1:
+                return True
+
+            if states[node] == 2:
+                return False
+
+            states[node] = 1
+            for neigh in edges[node]:
+                if has_cycle(neigh):
+                    return True
+
+            states[node] = 2
+            return False
+
         for i in range(numCourses):
-            if pre_req[i] == 0:
-                queue.append(i)
+            if states[i] == 0:
+                if has_cycle(i):
+                    return False
 
-        while queue:
-            sub = queue.popleft()
-            courses_taken += 1
-            for course in pre_cour[sub]:
-                pre_req[course] -= 1
-                if pre_req[course] == 0:
-                    queue.append(course)
-
-        return courses_taken == numCourses
+        return True
