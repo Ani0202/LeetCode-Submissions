@@ -1,22 +1,23 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        req = [0] * numCourses
-        preReq = defaultdict(list)
+        pre_req = defaultdict(int)
+        pre_cour = defaultdict(list)
         for a, b in prerequisites:
-            preReq[b].append(a)
-            req[a] += 1
+            pre_req[a] += 1
+            pre_cour[b].append(a)
 
-        stack = []
-        for course, nReq in enumerate(req):
-            if nReq == 0:
-                stack.append(course)
+        queue = deque()
+        courses_taken = 0
+        for i in range(numCourses):
+            if pre_req[i] == 0:
+                queue.append(i)
 
-        while stack:
-            course = stack.pop()
-            numCourses -= 1
-            for reqCourse in preReq[course]:
-                req[reqCourse] -= 1
-                if req[reqCourse] == 0:
-                    stack.append(reqCourse)
+        while queue:
+            sub = queue.popleft()
+            courses_taken += 1
+            for course in pre_cour[sub]:
+                pre_req[course] -= 1
+                if pre_req[course] == 0:
+                    queue.append(course)
 
-        return numCourses == 0
+        return courses_taken == numCourses
