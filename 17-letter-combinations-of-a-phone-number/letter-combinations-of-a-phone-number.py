@@ -12,13 +12,14 @@ class Solution:
             "9": "wxyz",
         }
 
-        def backTrack(digits, tempAns):
-            if digits == "":
+        def back_track(ind, tempAns):
+            if ind == len(digits):
                 ans.append(tempAns)
-            else:
-                for letter in hmap[digits[0]]:
-                    backTrack(digits[1:], tempAns + letter)
+                return
+            curr = digits[ind]
+            for letter in hmap[curr]:
+                back_track(ind + 1, tempAns + letter)
 
-        backTrack(digits, "")
+        back_track(0, "")
 
         return ans
