@@ -1,15 +1,16 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        if numRows == 1:
+        if numRows == 1 or numRows >= len(s):
             return s
 
-        ans = ["" for _ in range(numRows)]
-        dir = -1
-        i = 0
-        for letter in s:
-            ans[i] += letter
-            if i == 0 or i == numRows - 1:
-                dir *= -1
-            i += dir
+        rows = [""] * numRows
+        curr_row = 0
+        going_down = False
+        for char in s:
+            rows[curr_row] += char
+            if curr_row == 0 or curr_row == numRows - 1:
+                going_down = not going_down
 
-        return "".join(ans)
+            curr_row += 1 if going_down else -1
+
+        return "".join(rows)
